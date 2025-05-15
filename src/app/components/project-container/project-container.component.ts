@@ -9,9 +9,9 @@ import { ProjectListComponent } from '../project-list/project-list.component';
 import { ProjectSearchComponent } from '../project-search/project-search.component';
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css'],
+  selector: 'app-project-container',
+  templateUrl: './project-container.component.html',
+  styleUrls: ['./project-container.component.css'],
   imports: [
     SearchFilterPipe,
     ProjectSearchComponent,
@@ -20,7 +20,7 @@ import { ProjectSearchComponent } from '../project-search/project-search.compone
     ProjectFormComponent
   ]
 })
-export class ProjectComponent {
+export class ProjectContainerComponent {
   searchedProject = signal<SearchProject>({});
   selectedProject = signal<Project | undefined>(undefined);
 
