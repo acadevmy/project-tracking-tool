@@ -1,14 +1,15 @@
 import { DatePipe, NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { Project } from '../../models/project.model';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
-  imports: [NgClass, DatePipe],
+  imports: [NgClass, DatePipe]
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent {
   projects: Project[] = [
     {
       id: 1,
@@ -19,7 +20,7 @@ export class ProjectComponent implements OnInit {
       end: new Date(2019, 3, 15),
       priority: 'medium',
       done: true,
-      tasks: [],
+      tasks: []
     },
     {
       id: 2,
@@ -30,7 +31,7 @@ export class ProjectComponent implements OnInit {
       end: new Date(2019, 6, 15),
       priority: 'low',
       done: true,
-      tasks: [],
+      tasks: []
     },
     {
       id: 3,
@@ -40,11 +41,7 @@ export class ProjectComponent implements OnInit {
       start: new Date(2019, 8, 15),
       priority: 'low',
       done: false,
-      tasks: [],
-    },
+      tasks: []
+    }
   ];
-
-  constructor() {}
-
-  ngOnInit() {}
 }
