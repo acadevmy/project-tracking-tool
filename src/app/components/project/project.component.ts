@@ -1,3 +1,4 @@
+import { DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../../models/project.model';
 
@@ -5,6 +6,7 @@ import { Project } from '../../models/project.model';
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
+  imports: [NgClass, DatePipe],
 })
 export class ProjectComponent implements OnInit {
   projects: Project[] = [
