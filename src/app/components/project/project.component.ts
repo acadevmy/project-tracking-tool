@@ -2,9 +2,11 @@ import { DatePipe, NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
 
 import { Project } from '../../models/project.model';
+import { SearchProject } from '../../models/search-project.model';
 import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 import { ProjectDetailComponent } from '../project-detail/project-detail.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
+import { ProjectSearchComponent } from '../project-search/project-search.component';
 
 @Component({
   selector: 'app-project',
@@ -14,11 +16,13 @@ import { ProjectFormComponent } from '../project-form/project-form.component';
     NgClass,
     DatePipe,
     SearchFilterPipe,
+    ProjectSearchComponent,
     ProjectDetailComponent,
     ProjectFormComponent
   ]
 })
 export class ProjectComponent {
+  searchedProject = signal<SearchProject>({});
   selectedProject = signal<Project | undefined>(undefined);
 
   projects = signal<Project[]>([
@@ -55,6 +59,10 @@ export class ProjectComponent {
       tasks: []
     }
   ]);
+
+  onSearchProject(project: SearchProject): void {
+    this.searchedProject.set(project);
+  }
 
   onSelectProject(project: Project): void {
     this.selectedProject.set(project);
