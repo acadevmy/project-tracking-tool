@@ -1,5 +1,6 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { Project } from '../../models/project.model';
 import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
@@ -8,7 +9,7 @@ import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
-  imports: [NgClass, DatePipe, SearchFilterPipe]
+  imports: [NgClass, DatePipe, FormsModule, SearchFilterPipe]
 })
 export class ProjectComponent {
   selectedProject = signal<Project | undefined>(undefined);
@@ -50,5 +51,18 @@ export class ProjectComponent {
 
   onSelectProject(project: Project): void {
     this.selectedProject.set(project);
+  }
+
+  onSubmitProject(form: NgForm): void {
+    const project: Project = {
+      id: this.projects.length,
+      code: Math.random().toString(36).replace('0.', '').substring(2, 9),
+      done: false,
+      tasks: [],
+      ...form.value
+    };
+
+    this.projects.update((projects) => [project, ...projects]);
+    form.resetForm();
   }
 }
