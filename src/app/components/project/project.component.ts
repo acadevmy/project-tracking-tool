@@ -4,12 +4,19 @@ import { FormsModule, NgForm } from '@angular/forms';
 
 import { Project } from '../../models/project.model';
 import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
+import { ProjectDetailComponent } from '../project-detail/project-detail.component';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
-  imports: [NgClass, DatePipe, FormsModule, SearchFilterPipe]
+  imports: [
+    NgClass,
+    DatePipe,
+    FormsModule,
+    SearchFilterPipe,
+    ProjectDetailComponent
+  ]
 })
 export class ProjectComponent {
   selectedProject = signal<Project | undefined>(undefined);

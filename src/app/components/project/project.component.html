@@ -109,7 +109,7 @@
   </div>
 
   @if (selectedProject(); as selectedProject) {
-    <p class="py-8">{{ selectedProject.code }} - {{ selectedProject.name }}</p>
+    <app-project-detail [project]="selectedProject" />
   }
 
   <form #projectForm="ngForm" (ngSubmit)="onSubmitProject(projectForm)">
@@ -151,7 +151,9 @@
           ngModel
           required
           type="text"
-          [class.border-red-500]="priorityField.invalid && priorityField.touched"
+          [class.border-red-500]="
+            priorityField.invalid && priorityField.touched
+          "
         >
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -202,7 +204,9 @@
           name="description"
           ngModel
           required
-          [class.border-red-500]="descriptionField.invalid && descriptionField.touched"
+          [class.border-red-500]="
+            descriptionField.invalid && descriptionField.touched
+          "
         ></textarea>
         @if (descriptionField.invalid && descriptionField.touched) {
           <p class="font-semibold text-red-500">
