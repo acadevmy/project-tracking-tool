@@ -2,12 +2,13 @@ import { DatePipe, NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
 
 import { Project } from '../../models/project.model';
+import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
-  imports: [NgClass, DatePipe]
+  imports: [NgClass, DatePipe, SearchFilterPipe]
 })
 export class ProjectComponent {
   selectedProject = signal<Project | undefined>(undefined);
