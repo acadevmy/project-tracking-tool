@@ -11,56 +11,19 @@
       | searchFilter: 'priority' : searchedProject().priority?.toString() || ''
       | searchFilter: 'done' : searchedProject().done?.toString() || '';
 
-  <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
-    @for (project of filteredProjects; track project.id) {
-      <div class="flex">
-        <div
-          class="w-full overflow-hidden rounded-lg border-2 shadow-md"
-          [ngClass]="{
-            'border-green-500': project.done,
-            'border-yellow-500': !project.done
-          }"
-        >
-          <div class="p-4">
-            <h5
-              class="mb-2 flex items-center justify-between text-lg font-bold"
-            >
-              {{ project.name }}
-
-              <span class="rounded bg-gray-500 px-2 py-1 text-xs text-white">
-                {{ project.code }}
-              </span>
-            </h5>
-
-            <h6 class="mb-2 text-sm text-gray-500">
-              <span>{{ project.start | date: 'dd/MM/yyyy' }}</span>
-
-              @if (project.end) {
-                <span> - {{ project.end | date: 'dd/MM/yyyy' }}</span>
-              }
-            </h6>
-            <p class="mb-4 text-gray-700">{{ project.description }}</p>
-            <a
-              class="inline-block rounded bg-orange-500 px-3 py-1 text-sm font-medium text-white hover:bg-orange-600"
-              href="#"
-              (click)="onSelectProject(project)"
-            >
-              Vai al Progetto
-            </a>
-          </div>
-        </div>
-      </div>
-    }
-  </div>
-
-  @if (selectedProject(); as selectedProject) {
-    <app-project-detail [project]="selectedProject" />
-  }
-
-  <app-project-form
-    [nextId]="projects().length"
-    (submitted)="onSubmitProject($event)"
+  <app-project-list
+    [projects]="filteredProjects"
+    (selected)="onSelectProject($event)"
   />
 } @else {
   <div class="p-4 text-center text-gray-600">Non è presente alcun progetto</div>
 }
+
+@if (selectedProject(); as selectedProject) {
+  <app-project-detail [project]="selectedProject" />
+}
+
+<app-project-form
+  [nextId]="projects().length"
+  (submitted)="onSubmitProject($event)"
+/>

@@ -1,4 +1,3 @@
-import { DatePipe, NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
 
 import { Project } from '../../models/project.model';
@@ -6,6 +5,7 @@ import { SearchProject } from '../../models/search-project.model';
 import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 import { ProjectDetailComponent } from '../project-detail/project-detail.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
+import { ProjectListComponent } from '../project-list/project-list.component';
 import { ProjectSearchComponent } from '../project-search/project-search.component';
 
 @Component({
@@ -13,10 +13,9 @@ import { ProjectSearchComponent } from '../project-search/project-search.compone
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
   imports: [
-    NgClass,
-    DatePipe,
     SearchFilterPipe,
     ProjectSearchComponent,
+    ProjectListComponent,
     ProjectDetailComponent,
     ProjectFormComponent
   ]
