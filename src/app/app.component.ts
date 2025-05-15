@@ -8,6 +8,4 @@ import { ProjectContainerComponent } from './components/project-container/projec
   styleUrl: './app.component.css',
   imports: [ProjectContainerComponent]
 })
-export class AppComponent {
-  title = 'ng-tracking-tool';
-}
+export class AppComponent {}
