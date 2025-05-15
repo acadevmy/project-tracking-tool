@@ -1,5 +1,5 @@
 import { DatePipe, NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 import { Project } from '../../models/project.model';
 
@@ -10,7 +10,9 @@ import { Project } from '../../models/project.model';
   imports: [NgClass, DatePipe]
 })
 export class ProjectComponent {
-  projects: Project[] = [
+  selectedProject = signal<Project | undefined>(undefined);
+
+  projects = signal<Project[]>([
     {
       id: 1,
       code: 'NHusYJl',
@@ -43,5 +45,9 @@ export class ProjectComponent {
       done: false,
       tasks: []
     }
-  ];
+  ]);
+
+  onSelectProject(project: Project): void {
+    this.selectedProject.set(project);
+  }
 }
