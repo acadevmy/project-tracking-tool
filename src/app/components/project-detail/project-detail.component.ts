@@ -1,8 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { Component, inject, input, numberAttribute } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 import { ProjectService } from '../../services/project.service';
 import { SectionHeaderComponent } from '../section-header/section-header.component';
@@ -15,12 +13,11 @@ import { SectionHeaderComponent } from '../section-header/section-header.compone
 })
 export class ProjectDetailComponent {
   private projectService = inject(ProjectService);
-  private route = inject(ActivatedRoute);
 
-  project = toSignal(
-    this.route.paramMap.pipe(
-      map((params) => +(params.get('id') || 0)),
-      switchMap((projectId) => this.projectService.getBy(projectId))
-    )
-  );
+  id = input(0, { transform: numberAttribute });
+
+  project = rxResource({
+    request: () => this.id(),
+    loader: ({ request: projectId }) => this.projectService.getBy(projectId)
+  });
 }
