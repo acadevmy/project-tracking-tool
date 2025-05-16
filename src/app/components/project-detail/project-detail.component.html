@@ -4,17 +4,34 @@
 />
 
 @if (project.value(); as project) {
-  <div class="mt-5 rounded-lg bg-gray-100 p-6">
-    <h1 class="mb-2 text-4xl font-bold">{{ project.name }}</h1>
-    <p class="mb-4 text-xl text-gray-700">{{ project.description }}</p>
-    <hr class="my-4 border-t border-gray-300" />
-    <p class="text-gray-800">
-      <span>Codice: {{ project.code }}</span>
-      <span> - Data Inizio: {{ project.start | date: 'dd/MM/yyyy' }}</span>
+  @if (!editMode()) {
+    <div class="mt-5 rounded-lg bg-gray-100 p-6">
+      <h1 class="mb-2 text-4xl font-bold">{{ project.name }}</h1>
+      <p class="mb-4 text-xl text-gray-700">{{ project.description }}</p>
+      <hr class="my-4 border-t border-gray-300" />
 
-      @if (project.end) {
-        <span> - Data Fine: {{ project.end | date: 'dd/MM/yyyy' }}</span>
-      }
-    </p>
-  </div>
+      <div class="flex items-center">
+        <p class="flex-1 text-gray-800">
+          <span>Codice: {{ project.code }}</span>
+          <span> - Data Inizio: {{ project.start | date: 'dd/MM/yyyy' }}</span>
+
+          @if (project.end) {
+            <span> - Data Fine: {{ project.end | date: 'dd/MM/yyyy' }}</span>
+          }
+        </p>
+        <button
+          class="inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-transparent bg-orange-500 px-4 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:pointer-events-none disabled:opacity-50"
+          (click)="changeMode()"
+        >
+          Modifica
+        </button>
+      </div>
+    </div>
+  } @else {
+    <app-project-form
+      [newRecord]="false"
+      [project]="project"
+      (submitted)="updateProject($event)"
+    />
+  }
 }

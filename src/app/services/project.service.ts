@@ -61,4 +61,12 @@ export class ProjectService {
     this.projects = [nextProject, ...this.projects];
     this.projectsSource.next(this.projects);
   }
+
+  update(project: Project): void {
+    this.projects = this.projects.map((elem) => {
+      return elem.code === project.code ? { ...elem, ...project } : elem;
+    });
+
+    this.projectsSource.next([...this.projects]);
+  }
 }
