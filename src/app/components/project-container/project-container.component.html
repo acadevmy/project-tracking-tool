@@ -1,6 +1,15 @@
-<div>
-  <h2 class="mb-2 text-xl font-bold text-gray-900">I miei progetti</h2>
-  <hr />
+<div class="flex flex-col">
+  <div class="flex items-center justify-between">
+    <h2 class="mb-2 text-xl font-bold text-gray-900">I miei progetti</h2>
+    <button
+      class="inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-transparent bg-orange-500 px-4 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:pointer-events-none disabled:opacity-50"
+      routerLink="/"
+      type="button"
+    >
+      Torna alla Home
+    </button>
+  </div>
+  <hr class="mt-5" />
   <app-project-search (searching)="onSearchProject($event)" />
 </div>
 
@@ -17,10 +26,6 @@
   />
 } @else {
   <div class="p-4 text-center text-gray-600">Non è presente alcun progetto</div>
-}
-
-@if (selectedProject(); as selectedProject) {
-  <app-project-detail [project]="selectedProject" />
 }
 
 <app-project-form

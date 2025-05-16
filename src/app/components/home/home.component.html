@@ -1,3 +1,16 @@
-<p>
-  home works!
-</p>
+<div class="flex flex-col">
+  <div class="flex items-center justify-between">
+    <h2 class="mb-2 text-xl font-bold text-gray-900">
+      Benvenuto in {{ title() }}!
+    </h2>
+
+    <button
+      class="inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-transparent bg-orange-500 px-4 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:pointer-events-none disabled:opacity-50"
+      routerLink="/projects"
+      type="button"
+    >
+      Vai ai Progetti
+    </button>
+  </div>
+  <hr class="mt-5" />
+</div>

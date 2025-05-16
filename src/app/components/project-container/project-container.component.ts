@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { Project } from '../../models/project.model';
 import { SearchProject } from '../../models/search-project.model';
 import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 import { ProjectService } from '../../services/project.service';
-import { ProjectDetailComponent } from '../project-detail/project-detail.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import { ProjectListComponent } from '../project-list/project-list.component';
 import { ProjectSearchComponent } from '../project-search/project-search.component';
@@ -14,10 +14,10 @@ import { ProjectSearchComponent } from '../project-search/project-search.compone
   templateUrl: './project-container.component.html',
   styleUrls: ['./project-container.component.css'],
   imports: [
+    RouterLink,
     SearchFilterPipe,
     ProjectSearchComponent,
     ProjectListComponent,
-    ProjectDetailComponent,
     ProjectFormComponent
   ]
 })
