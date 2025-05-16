@@ -20,7 +20,4 @@
   <div class="p-4 text-center text-gray-600">Non è presente alcun progetto</div>
 }
 
-<app-project-form
-  [nextId]="projects().length"
-  (submitted)="onSubmitProject($event)"
-/>
+<app-project-form (submitted)="onSubmitProject($event)" />

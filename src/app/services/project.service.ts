@@ -57,7 +57,8 @@ export class ProjectService {
   }
 
   add(project: Project): void {
-    this.projects = [project, ...this.projects];
+    const nextProject: Project = { ...project, id: this.projects.length + 1 };
+    this.projects = [nextProject, ...this.projects];
     this.projectsSource.next(this.projects);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { Project } from '../../models/project.model';
@@ -10,13 +10,11 @@ import { Project } from '../../models/project.model';
   imports: [FormsModule]
 })
 export class ProjectFormComponent {
-  nextId = input.required<number>();
-
   submitted = output<Project>();
 
   onSubmit(form: NgForm): void {
     const project: Project = {
-      id: this.nextId(),
+      id: 0,
       code: Math.random().toString(36).replace('0.', '').substring(2, 9),
       done: false,
       tasks: [],
