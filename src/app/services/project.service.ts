@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
 import { Project } from '../models/project.model';
 
@@ -6,7 +7,7 @@ import { Project } from '../models/project.model';
   providedIn: 'root'
 })
 export class ProjectService {
-  private projectsSource = signal<Project[]>([
+  private projects: Project[] = [
     {
       id: 1,
       code: 'NHusYJl',
@@ -39,15 +40,24 @@ export class ProjectService {
       done: false,
       tasks: []
     }
-  ]);
+  ];
 
-  projects = this.projectsSource.asReadonly();
+  private projectsSource = new BehaviorSubject<Project[]>(this.projects);
+  projects$ = this.projectsSource.asObservable();
 
-  getBy(id: number): Project | undefined {
-    return this.projectsSource().find((project) => project.id === id);
+  getAll(): Observable<Project[]> {
+    return this.projects$;
+  }
+
+  getBy(id: number): Observable<Project> {
+    return this.projects$.pipe(
+      map((projects) => projects.find((project) => project.id === id)),
+      filter((project) => !!project)
+    );
   }
 
   add(project: Project): void {
-    this.projectsSource.update((projects) => [project, ...projects]);
+    this.projects = [project, ...this.projects];
+    this.projectsSource.next(this.projects);
   }
 }

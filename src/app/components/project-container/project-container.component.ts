@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Project } from '../../models/project.model';
 import { SearchProject } from '../../models/search-project.model';
@@ -24,7 +25,10 @@ import { SectionHeaderComponent } from '../section-header/section-header.compone
 export class ProjectContainerComponent {
   private projectService = inject(ProjectService);
 
-  projects = this.projectService.projects;
+  projects = toSignal(this.projectService.getAll(), {
+    initialValue: []
+  });
+
   searchedProject = signal<SearchProject>({});
   selectedProject = signal<Project | undefined>(undefined);
 
@@ -33,9 +37,9 @@ export class ProjectContainerComponent {
   }
 
   onSelectProject(project: Project): void {
-    const found = this.projectService.getBy(project.id);
+    const found = toSignal(this.projectService.getBy(project.id));
 
-    this.selectedProject.set(found);
+    this.selectedProject.set(found());
   }
 
   onSubmitProject(project: Project): void {
