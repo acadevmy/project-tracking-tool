@@ -5,9 +5,9 @@
 
 <app-project-search (searching)="onSearchProject($event)" />
 
-@if (projects().length) {
+@if (projects.value().length) {
   @let filteredProjects =
-    projects()
+    projects.value()
       | searchFilter: 'name' : searchedProject().name?.toString() || ''
       | searchFilter: 'priority' : searchedProject().priority?.toString() || ''
       | searchFilter: 'done' : searchedProject().done?.toString() || '';

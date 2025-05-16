@@ -3,7 +3,7 @@ import { Task } from './task.model';
 export type Priority = 'low' | 'medium' | 'high';
 
 export interface Project {
-  id: number;
+  id: string;
   code: string;
   name: string;
   description?: string;

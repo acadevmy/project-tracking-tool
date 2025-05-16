@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 import { Project } from '../../models/project.model';
 import { SearchProject } from '../../models/search-project.model';
@@ -27,8 +28,9 @@ export class ProjectContainerComponent {
   private projectService = inject(ProjectService);
   private router = inject(Router);
 
-  projects = toSignal(this.projectService.getAll(), {
-    initialValue: []
+  projects = rxResource({
+    loader: () => this.projectService.getAll(),
+    defaultValue: []
   });
 
   searchedProject = signal<SearchProject>({});
@@ -43,6 +45,9 @@ export class ProjectContainerComponent {
   }
 
   onSubmitProject(project: Project): void {
-    this.projectService.add(project);
+    this.projectService
+      .add(project)
+      .pipe(take(1))
+      .subscribe(() => this.projects.reload());
   }
 }

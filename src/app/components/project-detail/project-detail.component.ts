@@ -1,12 +1,7 @@
 import { DatePipe } from '@angular/common';
-import {
-  Component,
-  inject,
-  input,
-  numberAttribute,
-  signal
-} from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { take } from 'rxjs';
 
 import { Project } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
@@ -22,7 +17,7 @@ import { SectionHeaderComponent } from '../section-header/section-header.compone
 export class ProjectDetailComponent {
   private projectService = inject(ProjectService);
 
-  id = input(0, { transform: numberAttribute });
+  id = input.required<string>();
 
   project = rxResource({
     request: () => this.id(),
@@ -36,7 +31,12 @@ export class ProjectDetailComponent {
   }
 
   updateProject(project: Project): void {
-    this.projectService.update(project);
-    this.changeMode();
+    this.projectService
+      .update(project)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.project.reload();
+        this.changeMode();
+      });
   }
 }
