@@ -1,21 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
-import { ProjectContainerComponent } from './components/project-container/project-container.component';
-import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
-
 export const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'projects/detail/:id',
-    component: ProjectDetailComponent
+    loadChildren: () => import('@shared/shared.routes')
   },
   {
     path: 'projects',
-    component: ProjectContainerComponent
+    loadChildren: () => import('@project/project.routes')
   },
   {
     path: '',

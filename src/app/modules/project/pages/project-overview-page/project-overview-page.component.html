@@ -1,0 +1,23 @@
+<app-section-header
+  title="I miei Progetti"
+  [button]="{ label: 'Torna alla Home', link: '/', type: 'solid' }"
+/>
+
+<app-project-search (searching)="onSearchProject($event)" />
+
+@if (projects.value().length) {
+  @let filteredProjects =
+    projects.value()
+      | searchFilter: 'name' : searchedProject().name?.toString() || ''
+      | searchFilter: 'priority' : searchedProject().priority?.toString() || ''
+      | searchFilter: 'done' : searchedProject().done?.toString() || '';
+
+  <app-project-list
+    [projects]="filteredProjects"
+    (selected)="onSelectProject($event)"
+  />
+} @else {
+  <div class="p-4 text-center text-gray-600">Non è presente alcun progetto</div>
+}
+
+<app-project-form [quickMode]="true" (submitted)="onSubmitProject($event)" />
