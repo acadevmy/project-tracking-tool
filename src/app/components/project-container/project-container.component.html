@@ -1,17 +1,9 @@
-<div class="flex flex-col">
-  <div class="flex items-center justify-between">
-    <h2 class="mb-2 text-xl font-bold text-gray-900">I miei progetti</h2>
-    <button
-      class="inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-transparent bg-orange-500 px-4 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:pointer-events-none disabled:opacity-50"
-      routerLink="/"
-      type="button"
-    >
-      Torna alla Home
-    </button>
-  </div>
-  <hr class="mt-5" />
-  <app-project-search (searching)="onSearchProject($event)" />
-</div>
+<app-section-header
+  title="Torna alla Home"
+  [button]="{ label: 'I miei Progetti', link: '/', type: 'solid' }"
+/>
+
+<app-project-search (searching)="onSearchProject($event)" />
 
 @if (projects().length) {
   @let filteredProjects =
