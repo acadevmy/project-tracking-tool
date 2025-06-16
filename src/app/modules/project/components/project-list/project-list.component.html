@@ -9,7 +9,14 @@
         }"
       >
         <div class="p-4">
-          <h5 class="mb-2 flex items-center justify-between text-lg font-bold">
+          <h5
+            appHighlight="#ff6900"
+            appLinkable
+            class="mb-2 flex items-center justify-between text-lg font-bold"
+            tabindex="0"
+            (click)="onSelect(project)"
+            (keyup.enter)="onSelect(project)"
+          >
             {{ project.name }}
 
             <span class="rounded bg-gray-500 px-2 py-1 text-xs text-white">
