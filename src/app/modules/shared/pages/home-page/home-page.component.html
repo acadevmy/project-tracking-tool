@@ -1,4 +1,17 @@
-<app-section-header
-  [button]="{ label: 'Vai ai Progetti', link: '/projects', type: 'solid' }"
-  [title]="`Benvenuto in ${title()}!`"
-/>
+<div class="flex flex-col gap-4">
+  <app-section-header
+    [button]="{ label: 'Vai ai Progetti', link: '/projects', type: 'solid' }"
+    [title]="`Benvenuto in ${title()}!`"
+  />
+
+  @if (currentUser(); as user) {
+    <h2 class="text-2xl font-bold">Ciao, {{ user.name }} {{ user.surname }}!</h2>
+  } @else {
+    <button
+      class="cursor-pointer items-center gap-x-2 rounded-lg border border-transparent bg-orange-500 px-4 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:pointer-events-none disabled:opacity-50"
+      (click)="login()"
+    >
+      Login
+    </button>
+  }
+</div>
