@@ -21,6 +21,7 @@
       "@app/*": ["./src/app/*"],
       "@environments/*": ["./src/environments/*"],
       "@auth/*": ["./src/app/modules/auth/*"],
+      "@base/*": ["./src/app/modules/base/*"],
       "@project/*": ["./src/app/modules/project/*"],
       "@shared/*": ["./src/app/modules/shared/*"]
     }
