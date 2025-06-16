@@ -20,6 +20,7 @@
     "paths": {
       "@app/*": ["./src/app/*"],
       "@environments/*": ["./src/environments/*"],
+      "@auth/*": ["./src/app/modules/auth/*"],
       "@project/*": ["./src/app/modules/project/*"],
       "@shared/*": ["./src/app/modules/shared/*"]
     }
