@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, model, signal } from '@angular/core';
 import { ProjectFormComponent } from '@project/components';
 import { Project } from '@project/models';
 import { ProjectService } from '@project/services';
@@ -14,7 +14,7 @@ import { take } from 'rxjs';
 export class ProjectDetailPageComponent {
   private projectService = inject(ProjectService);
 
-  project = input<Project>();
+  project = model<Project>();
 
   editMode = signal(false);
 
@@ -26,6 +26,9 @@ export class ProjectDetailPageComponent {
     this.projectService
       .update(project)
       .pipe(take(1))
-      .subscribe(() => this.changeMode());
+      .subscribe(() => {
+        this.project.set(project);
+        this.changeMode();
+      });
   }
 }

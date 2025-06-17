@@ -32,7 +32,9 @@ export class ProjectService {
   }
 
   add(project: Project): Observable<Project> {
-    return this.http.post<Project>('/projects', project).pipe(
+    const { id: _, ...newProject } = project;
+
+    return this.http.post<Project>('/projects', newProject).pipe(
       catchError((error) => {
         console.error('An error occurred while adding the project', error);
 

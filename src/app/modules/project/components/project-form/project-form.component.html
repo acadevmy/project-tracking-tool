@@ -1,21 +1,23 @@
-<form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
-  <input name="id" type="hidden" [(ngModel)]="project().id" />
+<form [formGroup]="form()" (ngSubmit)="onSubmit()">
+  <input formControlName="id" name="id" type="hidden" />
 
-  <div class="my-5 flex gap-4">
+  <div class="flex gap-4 my-5">
     <div class="flex-1">
-      <label class="mb-2 block text-sm font-medium dark:text-white" for="name">
+      @let invalidName = form().controls.name.invalid && form().controls.name.touched;
+
+      <label class="block mb-2 text-sm font-medium dark:text-white" for="name">
         Nome
       </label>
       <input
-        #nameField="ngModel"
         class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-orange-500 focus:border-orange-500 focus:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 sm:py-3 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+        formControlName="name"
         name="name"
         required
         type="text"
-        [class.border-red-500]="nameField.invalid && nameField.touched"
-        [(ngModel)]="project().name"
+        [class.border-red-500]="invalidName"
       />
-      @if (nameField.invalid && nameField.touched) {
+
+      @if (invalidName) {
         <p class="font-semibold text-red-500">
           <small>Il campo è richiesto</small>
         </p>
@@ -23,26 +25,28 @@
     </div>
 
     <div class="flex-1">
+      @let invalidPriority = form().controls.priority.invalid && form().controls.priority.touched;
+
       <label
-        class="mb-2 block text-sm font-medium dark:text-white"
+        class="block mb-2 text-sm font-medium dark:text-white"
         for="priority"
       >
         Priorità
       </label>
       <select
-        #priorityField="ngModel"
-        class="block w-full appearance-none rounded-lg border border-gray-300 px-4 py-3 pe-9 text-sm outline-orange-500 focus:border-orange-500 focus:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+        class="block w-full px-4 py-3 text-sm border border-gray-300 rounded-lg appearance-none pe-9 outline-orange-500 focus:border-orange-500 focus:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+        formControlName="priority"
         name="priority"
         required
         type="text"
-        [class.border-red-500]="priorityField.invalid && priorityField.touched"
-        [(ngModel)]="project().priority"
+        [class.border-red-500]="invalidPriority"
       >
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
       </select>
-      @if (priorityField.invalid && priorityField.touched) {
+
+      @if (invalidPriority) {
         <p class="font-semibold text-red-500">
           <small>Il campo è richiesto</small>
         </p>
@@ -50,19 +54,21 @@
     </div>
 
     <div class="flex-1">
-      <label class="mb-2 block text-sm font-medium dark:text-white" for="start">
+      @let invalidStart = form().controls.start.invalid && form().controls.start.touched;
+
+      <label class="block mb-2 text-sm font-medium dark:text-white" for="start">
         Data Inizio
       </label>
       <input
-        #startField="ngModel"
         class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-orange-500 focus:border-orange-500 focus:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 sm:py-3 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+        formControlName="start"
         name="start"
         required
         type="date"
-        [class.border-red-500]="startField.invalid && startField.touched"
-        [(ngModel)]="project().start"
+        [class.border-red-500]="invalidStart"
       />
-      @if (startField.invalid && startField.touched) {
+
+      @if (invalidStart) {
         <p class="font-semibold text-red-500">
           <small>Il campo è richiesto</small>
         </p>
@@ -70,20 +76,22 @@
     </div>
 
     @if (!quickMode()) {
+      @let invalidEnd = form().controls.end.invalid && form().controls.end.touched;
+
       <div class="flex-1">
-        <label class="mb-2 block text-sm font-medium dark:text-white" for="end">
+        <label class="block mb-2 text-sm font-medium dark:text-white" for="end">
           Data fine
         </label>
         <input
-          #endField="ngModel"
           class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-orange-500 focus:border-orange-500 focus:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 sm:py-3 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+          formControlName="end"
           name="end"
           required
           type="date"
-          [class.border-red-500]="endField.invalid && endField.touched"
-          [(ngModel)]="project().end"
+          [class.border-red-500]="invalidEnd"
         />
-        @if (endField.invalid && endField.touched) {
+
+        @if (invalidEnd) {
           <p class="font-semibold text-red-500">
             <small>Il campo è richiesto</small>
           </p>
@@ -92,25 +100,25 @@
     }
   </div>
 
-  <div class="my-5 flex gap-4">
+  <div class="flex gap-4 my-5">
     <div class="flex-1">
+      @let invalidDescription = form().controls.description.invalid && form().controls.description.touched;
+
       <label
-        class="mb-2 block text-sm font-medium dark:text-white"
+        class="block mb-2 text-sm font-medium dark:text-white"
         for="description"
       >
         Descrizione
       </label>
       <textarea
-        #descriptionField="ngModel"
         class="block w-full rounded-lg border border-gray-300 px-4 py-2.5 outline-orange-500 focus:border-orange-500 focus:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 sm:py-3 sm:text-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+        formControlName="description"
         name="description"
         required
-        [class.border-red-500]="
-          descriptionField.invalid && descriptionField.touched
-        "
-        [(ngModel)]="project().description"
+        [class.border-red-500]="invalidDescription"
       ></textarea>
-      @if (descriptionField.invalid && descriptionField.touched) {
+
+      @if (invalidDescription) {
         <p class="font-semibold text-red-500">
           <small>Il campo è richiesto</small>
         </p>
@@ -119,9 +127,9 @@
   </div>
 
   <button
-    class="inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-transparent bg-orange-500 px-4 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:pointer-events-none disabled:opacity-50"
+    class="inline-flex items-center px-4 py-3 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-lg cursor-pointer gap-x-2 hover:bg-orange-600 disabled:pointer-events-none disabled:opacity-50"
     type="submit"
-    [disabled]="projectForm.invalid"
+    [disabled]="form().invalid"
   >
     {{ buttonText() }}
   </button>
