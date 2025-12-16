@@ -10,13 +10,12 @@
       >
         <div class="p-4">
           <h5
-            appLinkable
             class="mb-2 flex items-center justify-between text-lg font-bold"
             tabindex="0"
             (click)="onSelect(project)"
             (keyup.enter)="onSelect(project)"
           >
-            {{ project.name }}
+            <span appLinkable>{{ project.name }}</span>
 
             <span class="rounded bg-gray-500 px-2 py-1 text-xs text-white">
               {{ project.code }}
